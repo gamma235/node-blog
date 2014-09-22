@@ -37,18 +37,18 @@ function addNewPost(request, response) {
     }
     console.log("Title: " + post.title);
     console.log("Content: " + post.content);
-  })
+  });
   response.end(postsHTML);
 }
 
 // utils
-function render404(request, response) {
+function error404(request, response) {
   response.writeHead(404);
   response.end("404 File not found!");
 }
 
 function parseBody(request, callback) {
-  var body = " ";
+  var body = '';
 
   request.on('data', function(chunk) {
     body += chunk;
@@ -74,7 +74,7 @@ var server = http.createServer(function(request, response){
   } else if (postsREGEX.test(pathname)) {
     addNewPost(request, response);
   } else {
-    render404(request, response);
+    error404(request, response);
   }
 });
 
