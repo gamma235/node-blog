@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Post Form
+        </title>
+        <link href="/css/master.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>
+            New post
+        </h1>
+
+        <form method="post" action="/posts" id="new_post" class="new_post">
+
+            <div class="field">
+                <label for="post_title">Title</label><br>
+                <input type="text" name="title" id="post_title" size="30" />
+            </div>
+
+            <div class="field">
+                <label for="post_content">Content</label><br>
+                <textarea name="content" cols="40" rows="20" id="post_content">
+                </textarea>
+            </div>
+
+            <div class="actions">
+                <input type="submit" value="Create Post" id="post_submit" />
+            </div>
+        </form>
+        <p><br>
+            <a href="/home">Back</a>
+        </p>
+    </body>
+</html>
