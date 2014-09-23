@@ -2,10 +2,11 @@ var http = require('http'),
     url = require('url'),
     fs = require('fs'),
     qs = require('querystring'),
-    db = require('./models/db.js'),
-    express = require('express');
+    pg = require('pg');
 
-var app = express();
+
+// change this according to your db specs
+var conString = "pg://<user>:<pw>@localhost:5432/<db>";
 
 // render functions
 function renderHome(request, response) {
@@ -24,28 +25,37 @@ function renderPostForm(request, response) {
   response.end(newHTML);
 }
 
+// This function writes to the database then renders a thank you message
 function addNewPost(request, response) {
   var postsHTML = fs.readFileSync('views/post/posts.html');
   response.writeHead(200, {
     'content-type': 'text/html; charset=utf-8'
   });
   parseBody(request, function(body) {
-    var post = {
-      name: body.name,
-      email: body.email
-    }
-    db.connectUser();
-    db.subscribe(post.name, post.email);
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query('CREATE TABLE IF NOT EXISTS subscriber (name varchar(64), email varchar(64))', function(err, result) {
+        client.query("INSERT INTO subscriber (name, email) values($1, $2)", [body.name, body.email]);
+        done();
+        if(err) {
+          return console.error('error running query', err);
+        }
+        console.log(result.rows);
+      });
+    });
   });
   response.end(postsHTML);
 }
 
-// utils
+// errors
 function error404(request, response) {
   response.writeHead(404);
   response.end("404 File not found!");
 }
 
+// utils
 function parseBody(request, callback) {
   var body = '';
   request.on('data', function(chunk) {
@@ -79,7 +89,7 @@ var server = http.createServer(function(request, response){
   }
 });
 
-server.listen(5432);
+server.listen(3000);
 
 // on startup
-console.log("listening on port http://127.0.0.1:5432");
+console.log("listening on port http://127.0.0.1:3000");

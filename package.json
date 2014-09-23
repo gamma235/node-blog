@@ -8,8 +8,6 @@
   },
 
   "dependencies": {
-    "express": "4.9.4",
-    "jade": "*",
     "pg": "3.4.x"
   },
 
