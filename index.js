@@ -1,16 +1,15 @@
 var http = require('http'),
     url = require('url'),
     fs = require('fs'),
-    qs = require('querystring');
+    qs = require('querystring'),
+    db = require('./models/db.js'),
+    express = require('express');
 
-// html file cache
-var homeHTML = fs.readFileSync('views/post/home.html');
-var newHTML = fs.readFileSync('views/post/new.html');
-var postsHTML = fs.readFileSync('views/post/posts.html')
-
+var app = express();
 
 // render functions
 function renderHome(request, response) {
+  var homeHTML = fs.readFileSync('views/post/home.html');
   response.writeHead(200, {
     'content-type': 'text/html; charset=utf-8'
   });
@@ -18,6 +17,7 @@ function renderHome(request, response) {
 }
 
 function renderPostForm(request, response) {
+  var newHTML = fs.readFileSync('views/post/new.html');
   response.writeHead(200, {
     'content-type': 'text/html; charset=utf-8'
   });
@@ -25,18 +25,17 @@ function renderPostForm(request, response) {
 }
 
 function addNewPost(request, response) {
-
+  var postsHTML = fs.readFileSync('views/post/posts.html');
   response.writeHead(200, {
     'content-type': 'text/html; charset=utf-8'
   });
-
   parseBody(request, function(body) {
     var post = {
-      title: body.title,
-      content: body.content
+      name: body.name,
+      email: body.email
     }
-    console.log("Title: " + post.title);
-    console.log("Content: " + post.content);
+    db.connectUser();
+    db.subscribe(post.name, post.email);
   });
   response.end(postsHTML);
 }
@@ -49,7 +48,6 @@ function error404(request, response) {
 
 function parseBody(request, callback) {
   var body = '';
-
   request.on('data', function(chunk) {
     body += chunk;
   });
@@ -69,16 +67,19 @@ var server = http.createServer(function(request, response){
 
   if (homeREGEX.test(pathname)) {
     renderHome(request, response);
+
   } else if (newREGEX.test(pathname)) {
     renderPostForm(request, response);
+
   } else if (postsREGEX.test(pathname)) {
     addNewPost(request, response);
+
   } else {
     error404(request, response);
   }
 });
 
-server.listen(3000);
+server.listen(5432);
 
 // on startup
-console.log("listening on port http://127.0.0.1:3000");
+console.log("listening on port http://127.0.0.1:5432");

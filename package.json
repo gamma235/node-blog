@@ -6,6 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+
+  "dependencies": {
+    "express": "4.9.4",
+    "jade": "*",
+    "pg": "3.4.x"
+  },
+
   "author": "Jesse Diaz",
   "license": "MIT"
 }
