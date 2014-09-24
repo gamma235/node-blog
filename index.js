@@ -7,7 +7,7 @@ var http = require('http'),
 var css = fs.readFileSync('styles/master.css');
 
 // change this according to your db specs
-//var conString = "postgres://xucaccygtojehx:-0iTWi-fqnlB2JDC1vyYKct-ho@ec2-107-21-226-77.compute-1.amazonaws.com:5432/d2v320pb6k9spn";
+var conString = "postgres://xucaccygtojehx:-0iTWi-fqnlB2JDC1vyYKct-ho@ec2-107-21-226-77.compute-1.amazonaws.com:5432/d2v320pb6k9spn";
 
 // render functions
 function renderHome(request, response) {
@@ -27,11 +27,11 @@ function sendCSS (request, response) {
 }
 
 function sendTokyo (request, response) {
-  var CSS = fs.readFileSync('resources/images/tokyo.jpg');
+  var tokyo = fs.readFileSync('resources/images/tokyo.jpg');
   response.writeHead(200, {
     'content-type': 'text/css; charset=utf-8'
   });
-  response.end(CSS);
+  response.end(tokyo);
 }
 
 // This function writes to the database then renders a thank you message
@@ -50,14 +50,28 @@ function error404(request, response) {
 }
 
 // utils
-function parseBody(request, callback) {
-  var body = '';
-  request.on('data', function(chunk) {
-    body += chunk;
+// This function writes to the database then renders a thank you message
+function addNewPost(request, response) {
+  var postsHTML = fs.readFileSync('views/posts.html');
+  response.writeHead(200, {
+    'content-type': 'text/html; charset=utf-8'
   });
-  request.on('end', function() {
-    callback(qs.parse(body));
-  });
+  parseBody(request, function(body) {
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query('CREATE TABLE IF NOT EXISTS subscriber (name varchar(64), email varchar(64))', function(err, result) {
+        client.query("INSERT INTO subscriber (name, email) values($1, $2)", [body.name, body.email]);
+        done();
+        if(err) {
+          return console.error('error running query', err);
+        }
+        console.log(result.rows);
+      });
+    }
+  )};
+  response.end(postsHTML);
 }
 
 // routes
@@ -86,7 +100,7 @@ var server = http.createServer(function(request, response){
   }
 });
 
-server.listen(3000);
+server.listen(5000);
 
 // on startup
-console.log("listening on port http://127.0.0.1:3000");
+console.log("listening on port http://127.0.0.1:5000");
