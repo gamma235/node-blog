@@ -10,7 +10,7 @@ var conString = "postgres://xucaccygtojehx:-0iTWi-fqnlB2JDC1vyYKct-ho@ec2-107-21
 
 // render functions
 function renderHome(request, response) {
-  var homeHTML = fs.readFileSync('views/post/home.html');
+  var homeHTML = fs.readFileSync('views/get/home.html');
   response.writeHead(200, {
     'content-type': 'text/html; charset=utf-8'
   });
@@ -27,7 +27,7 @@ function renderPostForm(request, response) {
 
 // This function writes to the database then renders a thank you message
 function addNewPost(request, response) {
-  var postsHTML = fs.readFileSync('views/post/posts.html');
+  var postsHTML = fs.readFileSync('views/get/posts.html');
   response.writeHead(200, {
     'content-type': 'text/html; charset=utf-8'
   });
