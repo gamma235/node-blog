@@ -34,15 +34,6 @@ function sendTokyo (request, response) {
   response.end(tokyo);
 }
 
-// This function writes to the database then renders a thank you message
-function addNewPost(request, response) {
-  var postsHTML = fs.readFileSync('views/posts.html');
-  response.writeHead(200, {
-    'content-type': 'text/html; charset=utf-8'
-  });
-  response.end(postsHTML);
-}
-
 // errors
 function error404(request, response) {
   response.writeHead(404);
