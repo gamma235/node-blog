@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node index.js",
   },
-
   "dependencies": {
     "pg": "3.4.x"
   },
