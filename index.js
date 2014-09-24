@@ -60,8 +60,8 @@ function addNewPost(request, response) {
         }
         console.log(result.rows);
       });
-    }
-  )};
+    });
+  });
   response.end(postsHTML);
 }
 
