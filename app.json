@@ -1,0 +1,6 @@
+{
+  "name": "node-blog",
+  "description": "my personal blog",
+  "repository": "https://github.com/gamma235/node-blog.git",
+  "keywords": ["node", "heroku", "express", "postgresql"]
+}
