@@ -6,3 +6,5 @@ Known bugs:
 
 1. On the /posts/new page, the title is not being picked up and parsed.
 2. On the /posts/new page, the content text-area starts the cursor in the middle, not to the left.
+
+

@@ -6,7 +6,7 @@ html {
   background-size: cover;
 }
 
-#title_background {
+.title_background {
 width: 97%;
   margin: 50px auto;
   padding: 20px;

@@ -4,10 +4,10 @@
         <title>
             Home
         </title>
-        <link href="/styles/master.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/master.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div id="title_background">
+        <div class="title_background">
             <h1>
                 Everlasting Gobstoppers
             </h1>
@@ -29,11 +29,21 @@
                 I will also be holding regular meetup events in Saint Louis, where I live.
             </p>
 
-            <form method="get" action="/posts/new/" id="post_page" class="post_page">
+            <form method="post" action="/posts" id="new_post" class="new_post">
+
+                <div class="field">
+                    <label for="post_name">Name</label><br>
+                    <input type="text" name="name" id="post_name" size="30" />
+                </div>
+
+                <div class="field">
+                    <label for="post_email">Email</label><br>
+                    <input type="text" name="email" id="post_email" size="30" />
+                </div>
+
                 <div class="actions">
                     <input type="submit" value="Subscribe" id="post_submit" />
                 </div>
-            </div>
-        </form>
-    </body>
-</html>
+            </form>
+        </body>
+    </html>
