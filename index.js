@@ -7,7 +7,7 @@ var http = require('http'),
 var css = fs.readFileSync('styles/master.css');
 
 // change this according to your db specs
-var conString = "postgres://user:pw@localhost:5432/db";
+var conString = "postgres://xucaccygtojehx:-0iTWi-fqnlB2JDC1vyYKct-ho@ec2-107-21-226-77.compute-1.amazonaws.com:5432/d2v320pb6k9spn";
 
 // render functions
 function renderHome(request, response) {
