@@ -101,7 +101,7 @@ var server = http.createServer(function(request, response){
   }
 });
 
-server.listen(5000);
+server.listen(process.env.PORT || 5000);
 
-// on startup
-console.log("listening on port http://127.0.0.1:5000");
+// on startup in dev mode
+//console.log("listening on port http://127.0.0.1:5000");
