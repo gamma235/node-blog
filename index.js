@@ -41,6 +41,16 @@ function error404(request, response) {
 }
 
 // utils
+function parseBody(request, callback) {
+    var body = '';
+    request.on('data', function(chunk) {
+        body += chunk;
+    });
+    request.on('end', function() {
+        callback(qs.parse(body));
+    });
+}
+
 // This function writes to the database then renders a thank you message
 function addNewPost(request, response) {
   var postsHTML = fs.readFileSync('views/posts.html');
