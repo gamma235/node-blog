@@ -42,13 +42,13 @@ function error404(request, response) {
 
 // utils
 function parseBody(request, callback) {
-    var body = '';
-    request.on('data', function(chunk) {
-        body += chunk;
-    });
-    request.on('end', function() {
-        callback(qs.parse(body));
-    });
+  var body = '';
+  request.on('data', function(chunk) {
+    body += chunk;
+  });
+  request.on('end', function() {
+    callback(qs.parse(body));
+  });
 }
 
 // This function writes to the database then renders a thank you message
@@ -63,13 +63,19 @@ function addNewPost(request, response) {
         return console.error('error fetching client from pool', err);
       }
       client.query('CREATE TABLE IF NOT EXISTS subscribers (name varchar(64), email varchar(64))', function(err, result) {
-        client.query("INSERT INTO subscribers (name, email) values($1, $2)", [body.name, body.email]);
-        done();
         if(err) {
           return console.error('error running query', err);
         }
         console.log(result.rows);
       });
+
+      client.query("INSERT INTO subscribers (name, email) values($1, $2)", [body.name, body.email], function(err, result) {
+        if(err) {
+          return console.error('error running query', err);
+        }
+        console.log(result.rows);
+      });
+      done();
     });
   });
   response.end(postsHTML);
