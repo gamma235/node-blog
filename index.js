@@ -60,8 +60,9 @@ function addNewPost(request, response) {
   parseBody(request, function(body) {
     pg.connect(conString, function(err, client, done) {
       client.query('CREATE TABLE IF NOT EXISTS subscribers (name varchar(64), email varchar(64))');
-      client.query("INSERT INTO subscribers (name, email) values($1, $2)", [body.name, body.email]);
-      done();
+      client.query("INSERT INTO subscribers (name, email) values($1, $2)",[body.name, body.email] , function(err, result){
+        done();
+      });
     });
   });
   response.end(postsHTML);
