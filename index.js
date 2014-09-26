@@ -70,9 +70,9 @@ function addNewPost(request, response) {
           if(err) {
             return console.error('error running query', err);
           }
+          done();
         });
       });
-      done();
     });
   });
   response.end(postsHTML);
