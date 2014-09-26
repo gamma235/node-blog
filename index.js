@@ -66,14 +66,11 @@ function addNewPost(request, response) {
         if(err) {
           return console.error('error running query', err);
         }
-        console.log(result.rows);
-      });
-
-      client.query("INSERT INTO subscribers (name, email) values($1, $2)", [body.name, body.email], function(err, result) {
-        if(err) {
-          return console.error('error running query', err);
-        }
-        console.log(result.rows);
+        client.query("INSERT INTO subscribers (name, email) values($1, $2)", [body.name, body.email], function(err, result) {
+          if(err) {
+            return console.error('error running query', err);
+          }
+        });
       });
       done();
     });
