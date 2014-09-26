@@ -63,9 +63,6 @@ function addNewPost(request, response) {
         return console.error('error fetching client from pool', err);
       }
       client.query('CREATE TABLE IF NOT EXISTS subscribers (name varchar(64), email varchar(64))', function(err, result) {
-        if(err) {
-          return console.error('error running query', err);
-        }
         client.query("INSERT INTO subscribers (name, email) values($1, $2)", [body.name, body.email]);
         done();
       });
