@@ -59,6 +59,7 @@ function addNewPost(request, response) {
   response.writeHead(200, {
     'content-type': 'text/html ; charset=utf-8'
   });
+  response.write(postsHTML);
   parseBody(request, function(body) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
 
@@ -81,9 +82,7 @@ function addNewPost(request, response) {
       });
       done();
     });
-    response.on('finish', function(){
-      response.end(postsHTML);
-    });
+    response.end();
   });
 }
 
