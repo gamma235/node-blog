@@ -6,7 +6,7 @@ var http = require('http'),
 
 var css = fs.readFileSync('styles/master.css');
 
-// change this according to your db specs
+// for dev mode
 //var conString = "postgres://jessediaz:MolbloM-8@localhost:5432/jessediaz";
 
 // render functions
@@ -61,6 +61,8 @@ function addNewPost(request, response) {
   });
   parseBody(request, function(body) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+
+      // for dev mode
       //pg.connect(conString, function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
@@ -76,8 +78,6 @@ function addNewPost(request, response) {
           }
           console.log('user info added successfully');
         });;
-
-        done();
       });
     });
   });
@@ -111,7 +111,7 @@ var server = http.createServer(function(request, response){
 });
 
 server.listen(process.env.PORT || 5000);
-//server.listen(5000);
 
 // on startup in dev mode
+//server.listen(5000);
 //console.log("listening on port http://127.0.0.1:5000");
