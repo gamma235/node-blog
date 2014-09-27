@@ -3,13 +3,8 @@ var http = require('http'),
     fs = require('fs'),
     routes = require('./routes/routes.js'),
     db = require('./models/db.js'),
-    render = require('./utils/render.js');
-
-// errors
-function error404(request, response) {
-  response.writeHead(404);
-  response.end("404 File not found!");
-}
+    render = require('./utils/render.js'),
+    error = require('./utils/error.js');
 
 // server
 var server = http.createServer(function(request, response){
@@ -27,7 +22,7 @@ var server = http.createServer(function(request, response){
   else if (routes.tokyoREGEX.test(pathname)) {
     render.sendTokyo(request, response);
   } else {
-    error404(request, response);
+    error.error404(request, response);
   }
 });
 
