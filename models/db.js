@@ -26,10 +26,10 @@ exports.addNewPost = function(request, response) {
   parseBody(request, function(body) {
 
     //for prod mode
-//    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
 
-      // for dev mode
-      pg.connect(conString, function(err, client, done) {
+    // for dev mode
+    //pg.connect(conString, function(err, client, done) {
 
       if(err) {
         return console.error('error fetching client from pool', err);
