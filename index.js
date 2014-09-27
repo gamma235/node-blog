@@ -2,7 +2,7 @@ var http = require('http'),
     url = require('url'),
     fs = require('fs'),
     qs = require('querystring'),
-    pg = require('pg').native;
+    pg = require('pg');
 
 var css = fs.readFileSync('styles/master.css');
 
