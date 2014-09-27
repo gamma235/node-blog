@@ -79,9 +79,11 @@ function addNewPost(request, response) {
           console.log('user info added successfully');
         });;
       });
+      response.on('finish', function(){
+        done();
+      });
     });
   });
-  response.end(postsHTML);
 }
 
 // routes
