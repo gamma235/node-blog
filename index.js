@@ -43,8 +43,9 @@ function error404(request, response) {
 // utils
 function parseBody(request, callback) {
   var body = '';
-  request.on('data', function(chunk) {
-    body += chunk;
+  request.on('data', function(data) {
+    console.log(data.toString());
+    body += data.toString();
   });
   request.on('end', function() {
     console.log('about to parse body');
