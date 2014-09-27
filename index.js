@@ -57,6 +57,7 @@ function addNewPost(request, response) {
   var postsHTML = fs.readFileSync('views/posts.html');
   response.writeHead(200, {
     'content-type': 'text/html'
+    'charset': 'utf-8'
   });
   parseBody(request, function(body) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
