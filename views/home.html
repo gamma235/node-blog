@@ -32,18 +32,11 @@
             <form method="post" action="/posts" id="new_post" class="new_post">
 
                 <div class="field">
-                    <label for="post_name">Name</label><br>
-                    <input type="text" name="name" id="post_name" size="30" />
+                    <input type="text" placeholder="name" name="name" id="post_name" size="30" />
+                    <input type="text" placeholder="email" name="email" id="post_email" size="30" />
+                    <input type="submit" placeholder="email" value="Subscribe" id="post_submit" />
                 </div>
-
-                <div class="field">
-                    <label for="post_email">Email</label><br>
-                    <input type="text" name="email" id="post_email" size="30" />
-                </div>
-
-                <div class="actions">
-                    <input type="submit" value="Subscribe" id="post_submit" />
-                </div>
-            </form>
-        </body>
-    </html>
+            </div>
+        </form>
+    </body>
+</html>
